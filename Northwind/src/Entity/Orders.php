@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\OrdersRepository;
+use App\Repository\OrderDetailsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\OrdersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=OrdersRepository::class)
@@ -76,6 +79,24 @@ class Orders
      * @ORM\Column(type="string", length=15, nullable=true)
      */
     private $ShipCountry;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Customers::class, inversedBy="orders")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $customer;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="orders")
+     */
+    private $ordersDetails;
+
+    public function __construct()
+    {
+        $this->ordersDetails = new ArrayCollection();
+    }
+
+
 
     public function getId(): ?int
     {
@@ -225,4 +246,47 @@ class Orders
 
         return $this;
     }
+
+    public function getCustomer(): ?Customers
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customers $customer): self
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrderDetails[]
+     */
+    public function getOrdersDetails(): Collection
+    {
+        return $this->ordersDetails;
+    }
+
+    public function addOrdersDetail(OrderDetails $ordersDetail): self
+    {
+        if (!$this->ordersDetails->contains($ordersDetail)) {
+            $this->ordersDetails[] = $ordersDetail;
+            $ordersDetail->setOrders($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdersDetail(OrderDetails $ordersDetail): self
+    {
+        if ($this->ordersDetails->removeElement($ordersDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($ordersDetail->getOrders() === $this) {
+                $ordersDetail->setOrders(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
