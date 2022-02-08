@@ -4,7 +4,9 @@
 
 {% block body %}
 
-
+<pre>
+    {{ dump(products) }}
+</pre>
 <table class="table table-light table-hover">
 					<thead>
 						<tr>
@@ -33,7 +35,7 @@
                                 <td>{{ product.unitsInStock }}</td>
                                 <td>{{ product.unitsOnOrder }}</td>
                                 <td>{{ product.reorderLevel }}</td>
-                                <td>{{ product.discontinued }}</td>
+                                <td>{{ product.discontinued ? "true" : "false" }}</td>
 						    </tr>
                         {% endfor %}
 

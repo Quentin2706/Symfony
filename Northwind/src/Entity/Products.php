@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -169,6 +168,24 @@ class Products
     public function setDiscontinued(bool $discontinued): self
     {
         $this->discontinued = $discontinued;
+        return $this;
+    }
+
+     /**
+     * @ORM\ManyToOne(targetEntity="Suppliers", fetch="EAGER",  inversedBy="products")
+     * @ORM\JoinColumn(name="SupplierID", referencedColumnName="SupplierID")
+     * 
+     */
+    private $suppliers;
+
+    public function getSuppliers() : ?Suppliers
+    {
+        return $this->suppliers;    
+    }
+
+    public function setSuppliers(?Suppliers $suppliers) : self
+    {
+        $this->suppliers = $suppliers;
         return $this;
     }
 }
