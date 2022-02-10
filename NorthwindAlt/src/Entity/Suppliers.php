@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SuppliersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,9 +20,12 @@ class Suppliers
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=40)
-     */
+    /** 
+    * @ORM\Column(type="string", length=40)
+    * @Assert\NotBlank(
+    * message="Veuillez renseigner le nom du fournisseur"
+    * ) 
+    */ 
     private $CompanyName;
 
     /**

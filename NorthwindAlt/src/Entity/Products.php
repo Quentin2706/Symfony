@@ -20,6 +20,7 @@ class Products
 
     /**
      * @ORM\Column(type="string", length=40)
+     * 
      */
     private $ProductName;
 
@@ -62,6 +63,11 @@ class Products
      * @ORM\ManyToOne(targetEntity=Suppliers::class, inversedBy="products")
      */
     private $supplier;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Picture;
 
     public function getId(): ?int
     {
@@ -172,6 +178,18 @@ class Products
     public function setSupplier(?Suppliers $supplier): self
     {
         $this->supplier = $supplier;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->Picture;
+    }
+
+    public function setPicture(?string $Picture): self
+    {
+        $this->Picture = $Picture;
 
         return $this;
     }

@@ -1,4 +1,16 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}})  }}
+
+<div class="row">
+	<div class="col-sm-12 col-lg-6">{{ form_row(form.ProductName) }}</div>
+	<div class="col-sm-12 col-lg-6">{{ form_row(form.supplier) }}</div>
+	<div class="col-sm-12 col-lg-4">{{ form_row(form.CategoryID) }}</div>
+	<div class="col-sm-12 col-lg-4">{{ form_row(form.QuantityPerUnit) }}</div>
+	<div class="col-sm-12 col-lg-4">{{ form_row(form.UnitPrice) }}</div>
+	<div class="col-sm-12 col-lg-4">{{ form_row(form.UnitsInStock) }}</div>
+	<div class="col-sm-12 col-lg-4">{{ form_row(form.UnitsOnOrder) }}</div>
+	<div class="col-sm-12 col-lg-4">{{ form_row(form.ReorderLevel) }}</div>
+    <div class="col-sm-12 col-lg-6">{{ form_row(form.Picture2) }}</div>
+	<div class="d-none">{{ form_row(form.Discontinued) }}</div>
+	<button class="btn btn-primary offset-lg-4 offset-sm-1 col-lg-4 col-sm-10">{{ button_label|default('Save') }}</button>
+</div>
 {{ form_end(form) }}
